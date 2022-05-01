@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.input.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepad.controller.MainView">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="文件(F)">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onActionNew" text="新建(N)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onActionNewWindow" text="新窗口(W)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onActionOpen" text="打开(O)...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onActionSave" text="保存(S)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onActionSaveAs" text="另存为(A)...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="页面设置(U)..." />
+                  <MenuItem mnemonicParsing="false" text="打印(P)...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onActionExit" text="退出(X)" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="编辑(E)">
+            <items>
+              <MenuItem fx:id="undoButton" mnemonicParsing="false" onAction="#onActionUndo" text="撤销(U)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="cutButton" mnemonicParsing="false" onAction="#onActionCut" text="剪切(T)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="copyButton" mnemonicParsing="false" onAction="#onActionCopy" text="复制(C)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="pasteButton" mnemonicParsing="false" onAction="#onActionPaste" text="粘贴(P)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="deleteButton" mnemonicParsing="false" onAction="#onActionDelete" text="删除(L)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="findButton" mnemonicParsing="false" text="查找(F)...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="findNextButton" mnemonicParsing="false" text="查找下一个(N)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F3" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="findPreButton" mnemonicParsing="false" text="查找上一个(V)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F3" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" text="替换(R)...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" text="转到(G)...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onActionSelectAll" text="全选(A)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onActionDateAndTime" text="时间/日期(D)">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="格式(O)">
+            <items>
+              <MenuItem mnemonicParsing="false" text="自动换行(W)" />
+                  <MenuItem mnemonicParsing="false" text="字体(F)..." />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="查看(V)">
+              <items>
+                  <Menu mnemonicParsing="false" text="缩放(Z)">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="放大(I)">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="ADD" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="缩小(O)">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="MINUS" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="恢复默认缩放">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="DIGIT0" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                    </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" text="状态栏(S)" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="帮助(H)">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="关于记事本(A)" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TextArea fx:id="textArea" prefHeight="181.0" prefWidth="600.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="800.0">
+         <children>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Label fx:id="positionLabel" prefHeight="20.0" prefWidth="148.0" text="第 1 行，第 1 列" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Label fx:id="zoomLabel" prefHeight="20.0" prefWidth="62.0" text="100%" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Label fx:id="sysLabel" prefHeight="20.0" prefWidth="143.0" text="Windows (CRLF)" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Label fx:id="codingLabel" prefHeight="20.0" prefWidth="119.0" text="UTF-8" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
