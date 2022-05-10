@@ -78,24 +78,24 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="findButton" mnemonicParsing="false" text="查找(F)...">
+                  <MenuItem fx:id="findButton" mnemonicParsing="false" onAction="#onActionFind" text="查找(F)...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem fx:id="findNextButton" mnemonicParsing="false" text="查找下一个(N)">
+                  <MenuItem fx:id="findNextButton" mnemonicParsing="false" onAction="#onActionFindNext" text="查找下一个(N)">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="F3" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem fx:id="findPreButton" mnemonicParsing="false" text="查找上一个(V)">
+                  <MenuItem fx:id="findPreButton" mnemonicParsing="false" onAction="#onActionFindPre" text="查找上一个(V)">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="F3" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="替换(R)...">
+                  <MenuItem mnemonicParsing="false" onAction="#onActionReplace" text="替换(R)...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="转到(G)...">
+                  <MenuItem mnemonicParsing="false" onAction="#onActionGoto" text="转到(G)...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
@@ -112,7 +112,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="格式(O)">
             <items>
-              <MenuItem mnemonicParsing="false" text="自动换行(W)" />
+              <CheckMenuItem fx:id="autoWrapItem" mnemonicParsing="false" text="自动换行(W)" />
                   <MenuItem mnemonicParsing="false" text="字体(F)..." />
             </items>
           </Menu>
@@ -120,24 +120,24 @@
               <items>
                   <Menu mnemonicParsing="false" text="缩放(Z)">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="放大(I)">
+                      <MenuItem mnemonicParsing="false" onAction="#onActionZoomIn" text="放大(I)">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="ADD" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="缩小(O)">
+                        <MenuItem mnemonicParsing="false" onAction="#onActionZoomOut" text="缩小(O)">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="MINUS" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="恢复默认缩放">
+                        <MenuItem mnemonicParsing="false" onAction="#onActionResFont" text="恢复默认缩放">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="DIGIT0" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
                     </items>
                   </Menu>
-                  <MenuItem mnemonicParsing="false" text="状态栏(S)" />
+                  <CheckMenuItem fx:id="buttomBarCheck" mnemonicParsing="false" text="状态栏(S)" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="帮助(H)">
@@ -152,7 +152,7 @@
             <TextArea fx:id="textArea" prefHeight="181.0" prefWidth="600.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="800.0">
+      <HBox fx:id="buttomBarHbox" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="800.0">
          <children>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <Label fx:id="positionLabel" prefHeight="20.0" prefWidth="148.0" text="第 1 行，第 1 列" />

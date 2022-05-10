@@ -18,7 +18,6 @@ public class JavafxUtility {
         Parent root=fxmlLoader.load();
         Scene scene=new Scene(root);
         Stage stage=new Stage();
-        MainView mainView=fxmlLoader.getController();
         stage.setScene(scene);
         stage.setTitle("新建文本文档");
         return stage;

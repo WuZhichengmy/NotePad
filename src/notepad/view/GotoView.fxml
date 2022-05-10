@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="328.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepad.controller.GotoView">
+   <children>
+      <Label text="行号(L)：" />
+      <TextField fx:id="lineNumText" />
+      <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="298.0" spacing="10.0">
+         <children>
+            <Button fx:id="gotoButton" mnemonicParsing="false" onAction="#onActionGoto" text="转到">
+               <padding>
+                  <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onActionCancel" text="取消">
+               <padding>
+                  <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+               </padding>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets left="15.0" right="15.0" />
+   </padding>
+</VBox>

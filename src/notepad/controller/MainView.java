@@ -6,10 +6,21 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.DataFormat;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import notepad.Utility.JavafxUtility;
 
@@ -30,6 +41,7 @@ public class MainView {
     private String title="新建文本文档.txt"; //当前stage的标题
     private ObjectProperty<File> fileObjectProperty=new SimpleObjectProperty<File>(); //当前记事本文件
     private BooleanProperty isChange=new SimpleBooleanProperty(false); //记事本内容自保存之后是否发生改变
+    private ObjectProperty<Font> fontObjectProperty=new SimpleObjectProperty<Font>();
     @FXML
     private Label positionLabel;
     @FXML
@@ -56,6 +68,12 @@ public class MainView {
     private MenuItem findNextButton;
     @FXML
     private MenuItem findPreButton;
+    @FXML
+    private CheckMenuItem autoWrapItem;
+    @FXML
+    private HBox buttomBarHbox;
+    @FXML
+    private CheckMenuItem buttomBarCheck;
 
     /**
      * 打开新的窗口
@@ -219,6 +237,36 @@ public class MainView {
     }
 
     /**
+     * 点击转到
+     * @throws IOException
+     */
+    @FXML
+    private void onActionGoto() throws IOException {
+        FXMLLoader fl=JavafxUtility.getFxmlloader("/notepad/view/GotoView.fxml");
+        Stage s=JavafxUtility.createNewWindow(fl);
+        s.setTitle("转到指定行");
+        s.initModality(Modality.APPLICATION_MODAL);
+        GotoView gv=(GotoView)fl.getController();
+        gv.setTextArea(textArea);
+        s.show();
+    }
+
+    /**
+     * 点击查找
+     * @throws IOException
+     */
+    @FXML
+    private void onActionFind() throws IOException {
+        FXMLLoader fl=JavafxUtility.getFxmlloader("/notepad/view/FindView.fxml");
+        Stage s=JavafxUtility.createNewWindow(fl);
+        s.setTitle("查找");
+        s.initModality(Modality.WINDOW_MODAL);
+        FindView fv=(FindView)fl.getController();
+        fv.setTextArea(textArea);
+        s.show();
+    }
+
+    /**
      * 点击日期/时间
      */
     @FXML
@@ -232,7 +280,87 @@ public class MainView {
         }
     }
 
+    /**
+     * 点击替换
+     */
+    @FXML
+    private void onActionReplace() throws IOException {
+        FXMLLoader fl=JavafxUtility.getFxmlloader("/notepad/view/ReplaceView.fxml");
+        Stage s=JavafxUtility.createNewWindow(fl);
+        s.setTitle("替换");
+        s.initModality(Modality.WINDOW_MODAL);
+        ReplaceView rv=(ReplaceView) fl.getController();
+        rv.setTextArea(textArea);
+        s.show();
+    }
+
+    /**
+     * 点击查找下一个
+     * @throws IOException
+     */
+    @FXML
+    private void onActionFindNext() throws IOException {
+        if(FindView.findString.get().length()==0){
+            onActionFind();
+            return;
+        }
+        FindView fv=new FindView();
+        fv.setTextArea(textArea);
+        fv.findText=new TextField();
+        fv.findText.setText(fv.findString.get());
+        fv.findNextDown(getStage());
+    }
+
+    /**
+     * 点击查找上一个
+     * @throws IOException
+     */
+    @FXML
+    private void onActionFindPre() throws IOException {
+        if(FindView.findString.get().length()==0){
+            onActionFind();
+            return;
+        }
+        FindView fv=new FindView();
+        fv.setTextArea(textArea);
+        fv.findText=new TextField();
+        fv.findText.setText(fv.findString.get());
+        fv.findNextPre(getStage());
+    }
+
+    /**
+     * 点击放大
+     */
+    @FXML
+    private void onActionZoomIn(){
+        Font currentFont = fontObjectProperty.get();
+        double newSize = currentFont.getSize() + 1d;
+        Font newFont = Font.font(currentFont.getName(), newSize);
+        fontObjectProperty.set(newFont);
+    }
+
+    /**
+     * 点击缩小
+     */
+    @FXML
+    private void onActionZoomOut(){
+        Font currentFont = fontObjectProperty.get();
+        double newSize = currentFont.getSize() - 1d;
+        Font newFont = Font.font(currentFont.getName(), newSize);
+        fontObjectProperty.set(newFont);
+    }
+
+    /**
+     * 点击恢复默认缩放
+     */
+    @FXML
+    private void onActionResFont(){
+        Font currentFont = fontObjectProperty.get();
+        Font newFont = Font.font(currentFont.getName(), 12d);
+        fontObjectProperty.set(newFont);
+    }
     public void initialize(){
+        fontObjectProperty.set(textArea.getFont());
         //文本内容改变时，isChange设置为false
         textArea.textProperty().addListener((o)->{
             if(fileObjectProperty.isNull().get()&&textArea.getText().isEmpty()){
@@ -268,6 +396,9 @@ public class MainView {
             String posText=String.format("第 %d 行，第 %d 列",ln,col);
             positionLabel.setText(posText);
         });
+        fontObjectProperty.addListener((o,oldVal,newVal)->{
+            textArea.setFont(newVal);
+        });
         //可点击的选项
         undoButton.disableProperty().bind(textArea.undoableProperty().not());
         copyButton.disableProperty().bind(textArea.selectedTextProperty().isEmpty());
@@ -275,6 +406,11 @@ public class MainView {
         findButton.disableProperty().bind(textArea.textProperty().isEmpty());
         findNextButton.disableProperty().bind(textArea.textProperty().isEmpty());
         findPreButton.disableProperty().bind(textArea.textProperty().isEmpty());
+        //自动换行
+        textArea.wrapTextProperty().bind(autoWrapItem.selectedProperty());
+        //底部状态栏
+        buttomBarHbox.visibleProperty().bind(buttomBarCheck.selectedProperty());
+        buttomBarHbox.managedProperty().bind(buttomBarHbox.visibleProperty());
     }
 
     /**
