@@ -7,16 +7,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.DataFormat;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -359,6 +355,21 @@ public class MainView {
         Font newFont = Font.font(currentFont.getName(), 12d);
         fontObjectProperty.set(newFont);
     }
+
+    /**
+     * 点击字体
+     */
+    @FXML
+    private void onActionFont() throws IOException {
+        FXMLLoader fl=JavafxUtility.getFxmlloader("/notepad/view/FontView.fxml");
+        Stage s=JavafxUtility.createNewWindow(fl);
+        s.setTitle("字体");
+        s.initModality(Modality.WINDOW_MODAL);
+        FontView fv=(FontView) fl.getController();
+        fv.setTextArea(textArea);
+        s.show();
+    }
+
     public void initialize(){
         fontObjectProperty.set(textArea.getFont());
         //文本内容改变时，isChange设置为false

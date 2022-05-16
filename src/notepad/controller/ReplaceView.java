@@ -66,10 +66,9 @@ public class ReplaceView {
     @FXML
     private void onActionReplaceAll(){
         String oldStr=findText.getText();
-        String modStr=findText.getText();
+        String modStr=replaceText.getText();
         if(!matchCaseCheck.isSelected()){
             oldStr=oldStr.toLowerCase();
-            modStr=modStr.toLowerCase();
         }
         String str=textArea.getText();
         String newStr=str.replaceAll(oldStr,modStr);

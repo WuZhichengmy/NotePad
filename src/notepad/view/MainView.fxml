@@ -93,7 +93,7 @@
                      </accelerator></MenuItem>
                   <MenuItem mnemonicParsing="false" onAction="#onActionReplace" text="替换(R)...">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <MenuItem mnemonicParsing="false" onAction="#onActionGoto" text="转到(G)...">
                      <accelerator>
@@ -113,7 +113,7 @@
           <Menu mnemonicParsing="false" text="格式(O)">
             <items>
               <CheckMenuItem fx:id="autoWrapItem" mnemonicParsing="false" text="自动换行(W)" />
-                  <MenuItem mnemonicParsing="false" text="字体(F)..." />
+                  <MenuItem mnemonicParsing="false" onAction="#onActionFont" text="字体(F)..." />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="查看(V)">
