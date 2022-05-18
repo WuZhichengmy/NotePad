@@ -94,10 +94,10 @@ public class MainView {
                 return;
             }else if(st.equals(SaveType.SAVE)){
                 if(fileObjectProperty.isNotNull().get()){//之前保存过
-                    writeFile();
+                    writeFile();//写入文件
                 } else{//之前未保存
-                    saveFileDialog();
-                    saveFile();
+                    saveFileDialog();//弹出文件选择窗口
+                    saveFile();//写入文件
                 }
             }
         }
@@ -269,9 +269,9 @@ public class MainView {
     private void onActionDateAndTime(){
         LocalDateTime localDateTime=LocalDateTime.now();
         String date= DateTimeFormatter.ofPattern("HH:mm yyyy/M/d").format(localDateTime);
-        if(textArea.getSelection().getLength()==0){//如果有选中的内容
+        if(textArea.getSelection().getLength()==0){//如果没有选中的内容
             textArea.appendText(date);
-        }else{//没有选中的内容
+        }else{//有选中的内容
             textArea.replaceSelection(date);
         }
     }
@@ -441,7 +441,7 @@ public class MainView {
                 byte[] readBytes=Files.readAllBytes(fileObjectProperty.get().toPath());
                 String text=new String(readBytes,StandardCharsets.UTF_8);
                 textArea.setText(text);
-                isChange.set(false);
+                isChange.set(false);//标记当前文件为未更改
                 getStage().setTitle(fileObjectProperty.get().getName());
             } catch (IOException e) {
                 e.printStackTrace();

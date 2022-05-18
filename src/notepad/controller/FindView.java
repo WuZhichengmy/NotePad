@@ -77,22 +77,24 @@ public class FindView {
         int nowPos=textArea.getCaretPosition();
         String textStr=textArea.getText();
         String find=findText.getText();
+        //没有选中区分大小写，就将目标的查找字段都转换成小写
         if(matchCaseCheck==null||!matchCaseCheck.isSelected()){
             textStr.toLowerCase();
             find.toLowerCase();
         }
         int next=textStr.indexOf(find,nowPos);
-        if(next!=-1){
+        if(next!=-1){//找不到下一个
             textArea.selectRange(next,next+find.length());
         }else{
-            if(!(aroundCheck ==null) &&aroundCheck.isSelected()){
+            if(!(aroundCheck ==null) &&aroundCheck.isSelected()){//选中循环
                 next = textStr.indexOf(find);
-                if (next != -1) {
+                if (next != -1) {//在当前光标之前找到了
                     textArea.positionCaret(next);
                     textArea.selectRange(next, next + find.length());
                     return;
                 }
             }
+            //如果在当前条件下没有找到下一个
             Alert alert = new Alert(Alert.AlertType.NONE,
                     "找不到"+find,
                     ButtonType.OK);

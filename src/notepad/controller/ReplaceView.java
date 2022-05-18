@@ -95,23 +95,25 @@ public class ReplaceView {
         int nowPos=textArea.getCaretPosition();
         String textStr=textArea.getText();
         String find=findText.getText();
+        //是否区分大小写
         if(!matchCaseCheck.isSelected()){
             textStr.toLowerCase();
             find.toLowerCase();
         }
         int next=textStr.indexOf(find,nowPos);
-        if(next!=-1){
+        if(next!=-1){//找到，将光标移到指定位置
             textArea.selectRange(next,next+find.length());
             return true;
-        }else{
-            if(aroundCheck.isSelected()){
-                next = textStr.indexOf(find);
-                if (next != -1) {
+        }else{//当前位置之后不存在
+            if(aroundCheck.isSelected()){//勾选循环
+                next = textStr.indexOf(find);//从头找起
+                if (next != -1) {//找到
                     textArea.positionCaret(next);
                     textArea.selectRange(next, next + find.length());
                     return false;
                 }
             }
+            //找不到，弹出提示
             Alert alert = new Alert(Alert.AlertType.NONE,
                     "找不到"+find,
                     ButtonType.OK);
